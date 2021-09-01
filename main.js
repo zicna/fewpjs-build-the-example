@@ -4,29 +4,18 @@ const FULL_HEART = "♥";
 
 // Your JavaScript code goes here!
 
-// let likePost = (event) => {
-//   debugger;
-//   let newHart = event.target
-//   // console.log("hello");
-// };
-
 document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("modal");
   modal.setAttribute("class", "hidden");
 
   const likeHarts = document.getElementsByClassName("like-glyph");
-  // const url = "http://mimicServer.example.com";
-  // const config = {};
 
   for (hart of likeHarts) {
-    // debugger;
-
     hart.addEventListener("click", callServer);
   }
 });
 
 function callServer(event) {
-  // debugger;
   let hart = event.target;
   mimicServerCall()
     .then((response) => {
@@ -37,12 +26,10 @@ function callServer(event) {
         hart.innerText = EMPTY_HEART;
         hart.classList.remove("activated-heart");
       }
-
-      // debugger;
     })
     .catch((error) => {
       modal.innerHTML = error;
-      modal.classList.remove("hidden");
+      modal.className = "";
       setTimeout(function () {
         modal.setAttribute("class", "hidden");
       }, 3000);
