@@ -17,18 +17,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const likeHarts = document.getElementsByClassName("like-glyph");
   const url = "http://mimicServer.example.com";
   const config = {};
-  // console.log(likesBtn)
+
   for (hart of likeHarts) {
     // debugger;
-    hart.addEventListener(
-      "click",
-      mimicServerCall(url, config)
-        .then((response) => console.log(response))
-        .catch((error) => {
-          modal.innerHTML = error;
-          modal.classList.remove("hidden");
-        })
-    );
+    hart
+      .addEventListener("click", mimicServerCall(url, config))
+      .then((response) => console.log(response))
+      .catch((error) => {
+        modal.innerHTML = error;
+        modal.classList.remove("hidden");
+      });
   }
 });
 
@@ -37,8 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
 //------------------------------------------------------------------------------
 
 function mimicServerCall(url = "http://mimicServer.example.com", config = {}) {
-  // console.log("hello");
-  debugger;
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
       let isRandomFailure = Math.random() < 0.2;
