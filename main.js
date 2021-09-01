@@ -15,26 +15,46 @@ document.addEventListener("DOMContentLoaded", () => {
   modal.setAttribute("class", "hidden");
 
   const likeHarts = document.getElementsByClassName("like-glyph");
-  const url = "http://mimicServer.example.com";
-  const config = {};
+  // const url = "http://mimicServer.example.com";
+  // const config = {};
 
   for (hart of likeHarts) {
     // debugger;
-    hart
-      .addEventListener("click", mimicServerCall(url, config))
-      .then((response) => console.log(response))
-      .catch((error) => {
-        modal.innerHTML = error;
-        modal.classList.remove("hidden");
-      });
+
+    hart.addEventListener("click", callServer);
   }
 });
+
+function callServer(event) {
+  // debugger;
+  let hart = event.target;
+  mimicServerCall()
+    .then((response) => {
+      if (hart.innerText === EMPTY_HEART) {
+        hart.innerText = FULL_HEART;
+        hart.classList.add("activated-heart");
+      } else if (hart.innerText === FULL_HEART) {
+        hart.innerText = EMPTY_HEART;
+        hart.classList.remove("activated-heart");
+      }
+
+      // debugger;
+    })
+    .catch((error) => {
+      modal.innerHTML = error;
+      modal.classList.remove("hidden");
+      setTimeout(function () {
+        modal.setAttribute("class", "hidden");
+      }, 3000);
+    });
+}
 
 //------------------------------------------------------------------------------
 // Don't change the code below: this function mocks the server response
 //------------------------------------------------------------------------------
 
 function mimicServerCall(url = "http://mimicServer.example.com", config = {}) {
+  // console.log("hello");
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
       let isRandomFailure = Math.random() < 0.2;
