@@ -3,11 +3,20 @@ const EMPTY_HEART = "♡";
 const FULL_HEART = "♥";
 
 // Your JavaScript code goes here!
+const modalP = document.querySelector("#modal-message");
+
+const hartState = {
+  "♡": "♥",
+  "♥": "♡",
+};
+
+const hartColor = {
+  "": "red",
+  red: "",
+};
 
 document.addEventListener("DOMContentLoaded", () => {
-  const modal = document.getElementById("modal");
-  modal.setAttribute("class", "hidden");
-
+  const modal = document.querySelector(".hidden");
   const likeHarts = document.getElementsByClassName("like-glyph");
 
   for (hart of likeHarts) {
@@ -19,16 +28,19 @@ function callServer(event) {
   let hart = event.target;
   mimicServerCall()
     .then((response) => {
-      if (hart.innerText === EMPTY_HEART) {
-        hart.innerText = FULL_HEART;
-        hart.classList.add("activated-heart");
-      } else if (hart.innerText === FULL_HEART) {
-        hart.innerText = EMPTY_HEART;
-        hart.classList.remove("activated-heart");
-      }
+      // if (hart.innerText === EMPTY_HEART) {
+      //   hart.innerText = FULL_HEART;
+      //   hart.classList.add("activated-heart");
+      // } else if (hart.innerText === FULL_HEART) {
+      //   hart.innerText = EMPTY_HEART;
+      //   hart.classList.remove("activated-heart");
+      // }
+      hart.innerText = hartState[`${hart.innerText}`];
+      hart.style.color = hartColor[hart.style.color];
     })
     .catch((error) => {
-      modal.innerHTML = error;
+      // modalMessage.innerText = error;
+      modalP.innerText = error;
       modal.className = "";
       setTimeout(function () {
         modal.setAttribute("class", "hidden");
