@@ -5,8 +5,8 @@ const FULL_HEART = "♥";
 // Your JavaScript code goes here!
 
 document.addEventListener("DOMContentLoaded", () => {
-  const modal = document.getElementById("modal");
-  modal.setAttribute("class", "hidden");
+  const modal = document.querySelector(".hidden");
+  // modal.classList.add("hidden");
 
   const likeHarts = document.getElementsByClassName("like-glyph");
 
